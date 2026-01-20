@@ -6,3 +6,4 @@ data/TOSDR/tosdr_markdowns_en.jsonl
 models
 training/EULAI-Qwen3-Instruct-Final
 RepoToPrompt
+training/llama.cpp
