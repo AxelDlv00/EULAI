@@ -1,0 +1,8 @@
+.env
+service_account.jsondata/TOSDR/*.jsonl
+data/TOSDR/tosdr_markdowns.jsonl
+data/TOSDR/tosdr_markdowns_en.jsonl
+*DS_Store
+models
+training/EULAI-Qwen3-Instruct-Final
+RepoToPrompt

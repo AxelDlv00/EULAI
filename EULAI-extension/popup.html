@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/popup.css">
+</head>
+<body>
+    <div class="header">
+        <img src="icons/icon48.png" alt="L" class="logo-img">
+        <span class="logo-text">EULAI</span>
+    </div>
+
+    <button id="btn-analyze">Analyser la page</button>
+
+    <div id="result-container" class="hidden">
+        <div id="result-content"></div>
+    </div>
+
+    <script src="js/vendor/marked.umd.min.js"></script> 
+    <script src="js/services/analysis.service.js"></script>
+    <script src="js/ui/popup.ui.js"></script>
+    <script src="js/popup.main.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{
+    "model": {
+        "id": "Qwen/Qwen3-0.6B",
+        "trust_remote_code": true
+    },
+    "dataset": {
+        "id": "AxelDlv00/EULAI",
+        "split": "train"
+    },
+    "training": {
+        "output_dir": "./EULAI-Qwen3-Instruct-Final",
+        "num_train_epochs": 3,
+        "per_device_train_batch_size": 2,
+        "per_device_eval_batch_size": 4,
+        "gradient_accumulation_steps": 4,
+        "learning_rate": 1e-4,
+        "logging_steps": 20,
+        "save_strategy": "epoch",
+        "eval_strategy": "epoch",
+        "warmup_ratio": 0.03,
+        "max_length": 2048,
+        "packing": true,
+        "bf16": true
+    },
+    "lora": {
+        "r": 16,
+        "lora_alpha": 32,
+        "lora_dropout": 0.05,
+        "target_modules": ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+        "bias": "none",
+        "task_type": "CAUSAL_LM"
+    },
+    "inference": {
+        "temperature": 0.1,
+        "max_new_tokens": 512,
+        "num_samples": 3
+    }
+}

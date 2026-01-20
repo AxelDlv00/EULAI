@@ -1,0 +1,3 @@
+[submodule "data/EULAI"]
+	path = data/EULAI
+	url = https://huggingface.co/datasets/AxelDlv00/EULAI
