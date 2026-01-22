@@ -1,40 +1,53 @@
-// js/services/analysis.service.js
-import { ProxyToWorker } from '../vendor/wllama/worker.js';
+import { Wllama } from '../vendor/wllama/index.js';
 
 export class AnalysisService {
     constructor() {
-        this.proxy = null;
+        this.wllama = null;
     }
 
-    async fetchSummaryStream(ignoredText, onProgress, onToken) {
+    async initWllama(onProgress) {
+        if (this.wllama) return;
+
+        // Configuration des chemins vers les assets de la bibliothèque
+        const config = {
+            "wllama.js": chrome.runtime.getURL("js/vendor/wllama/index.js"),
+            "wllama.wasm": chrome.runtime.getURL("js/vendor/wllama/wllama.wasm"),
+            "wllama-mt.wasm": chrome.runtime.getURL("js/vendor/wllama/wllama-mt.wasm"),
+        };
+
+        this.wllama = new Wllama(config);
+        
+        onProgress("Chargement du modèle local...");
+        const modelUrl = chrome.runtime.getURL("models/EULAI-Q4_K_M.gguf");
+        
+        await this.wllama.loadModelFromUrl(modelUrl, {
+            progressCallback: ({ loaded, total }) => {
+                const pct = Math.round((loaded / total) * 100);
+                onProgress(`Chargement : ${pct}%`);
+            }
+        });
+    }
+
+    async fetchSummaryStream(text, onProgress, onToken) {
         try {
-            if (!this.proxy) {
-                onProgress("Chargement du cerveau IA (378MB)...");
-                const url = chrome.runtime.getURL("models/EULAI-Q4_K_M.gguf");
-                const resp = await fetch(url);
-                const blob = await resp.blob();
+            await this.initWllama(onProgress);
 
-                const paths = {
-                    'wllama.js': chrome.runtime.getURL("js/vendor/wllama/single-thread.js"),
-                    'wllama.wasm': chrome.runtime.getURL("js/vendor/wllama/wllama.wasm"),
-                };
+            onProgress("Analyse juridique en cours...");
 
-                this.proxy = new ProxyToWorker(paths);
-                await this.proxy.init(blob);
-            }
-
-            onProgress("L'IA réfléchit...");
-            const result = await this.proxy.runInference();
+            const prompt = `[INST] Tu es un expert juridique. Analyse ce texte et liste les clauses risquées ou abusives de manière concise :
             
-            if (result && result.text) {
-                onToken(result.text);
-            } else {
-                throw new Error("Réponse vide de l'IA");
-            }
-            return result;
+            TEXTE : ${text} [/INST]`;
+
+            const output = await this.wllama.createCompletion(prompt, {
+                nPredict: 512,
+                sampling: { temp: 0.3, top_k: 40, top_p: 0.9 },
+                onNewToken: (token) => onToken(token)
+            });
+
+            return output;
         } catch (e) {
-            console.error(e);
-            throw e;
+            console.error("Erreur Inférence:", e);
+            throw new Error("L'IA n'a pas pu répondre : " + e.message);
         }
     }
 }

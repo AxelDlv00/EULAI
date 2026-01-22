@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "EULAI Test",
-  "version": "0.1.0",
+  "name": "EULAI WebGPU",
+  "version": "0.2.0",
   "action": { "default_popup": "popup.html" },
-  "permissions": ["scripting"],
+  "permissions": ["scripting", "storage"],
   "content_security_policy": {
-    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; worker-src 'self';"
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
   },
   "web_accessible_resources": [{
     "resources": ["js/vendor/wllama/*", "models/*"],
