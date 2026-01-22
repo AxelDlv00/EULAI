@@ -1,28 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "EULAI",
-  "short_name": "EULAI",
+  "name": "EULAI Test",
   "version": "0.1.0",
-  "description": "Instantly summarize Terms of Service and Privacy Policies. Don't lie, use EULAI.",
-  "author": "Axel Delaval",
-  "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
+  "action": { "default_popup": "popup.html" },
+  "permissions": ["scripting"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; worker-src 'self';"
   },
-  "action": {
-    "default_title": "Analyze with EULAI",
-    "default_popup": "popup.html",
-    "default_icon": {
-      "16": "icons/icon16.png",
-      "32": "icons/icon32.png"
-    }
-  },
-  "permissions": [
-    "activeTab",
-    "scripting"
-  ],
-  "host_permissions": [
-    "<all_urls>"
-  ]
+  "web_accessible_resources": [{
+    "resources": ["js/vendor/wllama/*", "models/*"],
+    "matches": ["<all_urls>"]
+  }]
 }
