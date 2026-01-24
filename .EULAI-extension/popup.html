@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/popup.css">
+</head>
+<body>
+    <div class="header">
+        <img src="icons/icon48.png" alt="L" class="logo-img">
+        <span class="logo-text">EULAI</span>
+    </div>
+
+    <button id="btn-analyze">Analyser la page</button>
+
+    <div id="result-container" class="hidden">
+        <div id="status-area" class="status-box hidden">
+            <div class="spinner-small"></div>
+            <span id="status-text">...</span>
+        </div>
+
+        <div id="ai-response-area" class="hidden">
+            <h3 class="section-title">✨ Analyse EULAI</h3>
+            <div id="ai-content" class="markdown-body"></div>
+        </div>
+
+        <div id="raw-document-area">
+            <h3 class="section-title">📄 Document extrait</h3>
+            <div id="document-preview" class="content-explorer"></div>
+        </div>
+    </div>
+
+    <details id="debug-area" style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px;">
+        <summary style="font-size: 11px; color: #666; cursor: pointer;">Afficher les logs / erreurs</summary>
+        <div id="debug-console" class="console-box"></div>
+    </details>
+
+    <script src="js/vendor/marked.umd.min.js"></script>
+    <script type="module" src="js/popup.main.js"></script>
+</body>
+</html>

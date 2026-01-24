@@ -7,3 +7,6 @@ models
 training/EULAI-Qwen3-Instruct-Final
 RepoToPrompt
 training/llama.cpp
+*node_modules*
+*dist*
+*cache*

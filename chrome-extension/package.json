@@ -1,0 +1,23 @@
+{
+  "name": "eulai-extension",
+  "author": "Axel Delaval",
+  "version": "0.1.1",
+  "description": "You lie? EULAI! - Intelligent browser extension to break the opacity of digital contracts.",
+  "scripts": {
+    "build": "parcel build src/manifest.json --config @parcel/config-webextension --no-content-hash",
+    "start": "parcel watch src/manifest.json --config @parcel/config-webextension"
+  },
+  "devDependencies": {
+    "@parcel/config-webextension": "^2.12.0",
+    "@types/chrome": "^0.0.268",
+    "buffer": "^6.0.3",
+    "parcel": "^2.12.0",
+    "process": "^0.11.10",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@mlc-ai/web-llm": "^0.2.80",
+    "@mlc-ai/web-runtime": "^0.23.0-dev1",
+    "progressbar.js": "^1.1.0"
+  }
+}

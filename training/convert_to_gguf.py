@@ -20,11 +20,11 @@ def main():
     base_gguf_path = os.path.join(OUTPUT_DIR, f"EULAI-merged-f16.gguf")
 
     if os.path.exists(base_gguf_path):
-        print(f'The file {base_gguf_path} already exists. Skipping merge/conversion step.')
+        print(f'The file {base_gguf_path} already exists. Skipping.')
     else:
         base_model = AutoModelForCausalLM.from_pretrained(
             BASE_MODEL_ID,
-            torch_dtype=torch.float16,
+            dtype=torch.float16,
             device_map="auto",
             trust_remote_code=True
         )
@@ -33,7 +33,17 @@ def main():
         merged_model.save_pretrained(MERGED_DIR)
         
         tokenizer = AutoTokenizer.from_pretrained(ADAPTER_ID)
-        tokenizer.save_pretrained(MERGED_DIR)
+        
+        chatml_template = (
+            "{% for message in messages %}"
+            "{{'<|im_start|>' + message['role'] + '\n' + message['content'] + '<|im_end|>\n'}}"
+            "{% endfor %}"
+            "{% if add_generation_prompt %}"
+            "{{ '<|im_start|>assistant\n' }}"
+            "{% endif %}"
+        )
+        tokenizer.chat_template = chatml_template
+        tokenizer.save_pretrained(MERGED_DIR) 
 
         convert_script = os.path.join(LLAMA_CPP_PATH, "convert_hf_to_gguf.py")
         
