@@ -158,7 +158,54 @@ async function renderResponse(text: string) {
   const cleanText = text.replace(/<think>[\s\S]*?<\/think>/g, "").trim();
   loader.style.display = "none";
   answerWrapper.classList.remove("hidden");
-  answerDiv.innerHTML = await marked.parse(cleanText);
+
+  const statusRegex = /^[-]?\s?\[(BLOCKER|BAD|GOOD|NEUTRAL)\](?:\s*:\s*(\*\*|)([^:\n]*?)(\*\*|))?(?:\s*:\s*(.*))?$/gm;
+  
+  const iconMap: Record<string, string> = {
+    BLOCKER: "fa-solid fa-ban",
+    BAD: "fa-solid fa-circle-exclamation",
+    GOOD: "fa-solid fa-check-circle",
+    NEUTRAL: "fa-solid fa-circle-info"
+  };
+
+  let htmlOutput = "";
+  let lastIndex = 0;
+  let match;
+
+  while ((match = statusRegex.exec(cleanText)) !== null) {
+    const beforeText = cleanText.substring(lastIndex, match.index);
+    if (beforeText.trim()) {
+      htmlOutput += await marked.parse(beforeText);
+    }
+
+    const type = match[1];
+    const title = match[3] ? match[3].trim() : "";
+    const explanation = match[5] ? match[5].trim() : "";
+
+    const displayTitle = title || "<i>Analyzing...</i>";
+    const titleStyle = title ? "" : "style='opacity: 0.6;'";
+
+    htmlOutput += `
+      <div class="status-box ${type}">
+        <div class="status-icon-wrapper">
+          <i class="${iconMap[type]} status-fa-icon"></i>
+        </div>
+        <div class="status-content">
+          <span class="status-title" ${titleStyle}>${displayTitle}</span>
+          ${explanation ? `<p class="status-explanation">${explanation}</p>` : ""}
+        </div>
+      </div>
+    `;
+
+    lastIndex = statusRegex.lastIndex;
+  }
+
+  const remainingText = cleanText.substring(lastIndex);
+  if (remainingText.trim()) {
+    htmlOutput += await marked.parse(remainingText);
+  }
+
+  answerDiv.innerHTML = htmlOutput;
   
   getEl("timestamp").innerText = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   getEl("copyAnswer").onclick = () => navigator.clipboard.writeText(cleanText);

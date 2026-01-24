@@ -66,3 +66,56 @@ header { display: flex; justify-content: space-between; align-items: center; mar
 .typing-loader span { width: 8px; height: 8px; background: var(--primary); display: inline-block; border-radius: 50%; margin: 0 2px; animation: bounce 0.6s infinite alternate; }
 @keyframes bounce { to { transform: translateY(-6px); opacity: 0.3; } }
 .hidden { display: none; }
+
+
+/* Container for special status boxes */
+.status-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px;
+    margin: 10px 0;
+    border-left: 4px solid #ccc;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Color coding for different types */
+.status-box.BLOCKER { border-left-color: #e63946; background: #fff5f5; }
+.status-box.BAD     { border-left-color: #f4a261; background: #fff9f4; }
+.status-box.GOOD    { border-left-color: #2a9d8f; background: #f0faf9; }
+.status-box.NEUTRAL { border-left-color: #4361ee; background: #f0f3ff; }
+
+.status-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+}
+
+.status-fa-icon {
+    font-size: 18px;
+    margin-top: 2px;
+}
+
+/* Icon specific colors */
+.status-box.BLOCKER .status-fa-icon { color: #e63946; }
+.status-box.BAD     .status-fa-icon { color: #f4a261; }
+.status-box.GOOD    .status-fa-icon { color: #2a9d8f; }
+.status-box.NEUTRAL .status-fa-icon { color: #4361ee; }
+
+.status-content { flex: 1; }
+
+.status-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 2px;
+    display: block;
+}
+
+.status-explanation {
+    font-size: 12px;
+    color: var(--text-main);
+    line-height: 1.4;
+}
