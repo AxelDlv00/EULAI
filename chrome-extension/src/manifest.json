@@ -3,7 +3,7 @@
   "name": "You lie? EULAI!",
   "author": "Axel Delaval",
   "version": "0.1.1",
-  "description": "Because nobody has time to read the lies in EULAs. Instantly summarize Terms of Service and Privacy Policies.",
+  "description": "Local AI assistant to summarize and explain Terms of Service instantly.",
   "icons": {
     "16": "icons/icon-16.png",
     "32": "icons/icon-32.png",
@@ -11,7 +11,7 @@
     "128": "icons/icon-128.png"
   },
   "content_security_policy": {
-    "extension_pages": "style-src-elem 'self' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; script-src 'self' 'wasm-unsafe-eval'; default-src 'self' data:; connect-src 'self' data: http://localhost:8000 https://huggingface.co https://*.huggingface.co https://cdn-lfs.huggingface.co https://cdn-lfs-us-1.hf.co https://raw.githubusercontent.com https://*.xethub.com https://*.hf.co"
+    "extension_pages": "style-src-elem 'self' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; script-src 'self' 'wasm-unsafe-eval'; default-src 'self' data:; connect-src 'self' data: http://localhost:8000 https://huggingface.co https://*.huggingface.co https://cdn-lfs.huggingface.co https://raw.githubusercontent.com https://cdn-lfs-us-1.hf.co https://*.xethub.com https://*.hf.co"
   },
   "action": {
     "default_title": "EULAI",
@@ -23,15 +23,12 @@
       "js": ["content.js"]
     }
   ],
-  "permissions": [
-    "storage", 
-    "tabs", 
-    "webNavigation", 
-    "activeTab", 
-    "scripting"
+  "web_accessible_resources": [
+    {
+      "resources": ["content.js"],
+      "matches": ["<all_urls>"]
+    }
   ],
-  "host_permissions": [
-    "http://*/", 
-    "https://*/"
-  ]
+  "permissions": ["storage", "tabs", "activeTab", "scripting"],
+  "host_permissions": ["http://*/", "https://*/"]
 }

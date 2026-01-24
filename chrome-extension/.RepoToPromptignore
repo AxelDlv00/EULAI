@@ -1,0 +1,37 @@
+# Folders
+.git/
+__pycache__/
+node_modules/
+venv/
+.venv/
+build/
+dist/
+.idea/
+.vscode/
+
+# Binaries & Media
+*.log
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.pdf
+*.exe
+*.bin
+*.pyc
+*.DS_Store
+*.zip
+*.tar.gz
+*.mp4
+
+# Project specific
+output.txt
+.RepoToPromptignore
+
+dist/*
+.parcel-cache/*
+node_modules/*
+src/icons
+src/output.txt
+package-lock.json

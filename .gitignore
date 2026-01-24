@@ -12,6 +12,7 @@ training/llama.cpp
 *cache*
 *output.txt
 chrome-extension/.parcel-cache
+.*cache*
 chrome-extension/dist
 chrome-extension/.DS_Store
 chrome-extension/node_modules

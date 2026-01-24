@@ -1,56 +1,69 @@
-Using https://github.com/mlc-ai/web-llm/tree/main/examples/chrome-extension as reference.
+# EULAI - Local AI Browser Assistant
 
-# MLCBot - Assistant IA local (Chrome Extension)
+Using [MLC Web-LLM](https://github.com/mlc-ai/web-llm/tree/main/examples/chrome-extension) as a technical reference.
 
-MLCBot est une extension Chrome qui permet de discuter avec un modèle de langage (LLM) directement dans votre navigateur. Contrairement aux extensions classiques, l'inférence est effectuée **100% localement** sur votre machine grâce à **WebGPU**, garantissant une confidentialité totale et aucune dépendance à des serveurs tiers.
+EULAI is a Chrome extension that allows you to interact with a Large Language Model (LLM) directly in your browser. Unlike traditional AI extensions, inference is performed **100% locally** on your machine using **WebGPU**. This ensures total privacy, no data leaves your device, and there is no dependency on third-party servers.
 
-## Arborescence du Projet
+## Project Structure
 
-Pour maintenir le projet et le compiler, la structure suivante est utilisée :
+To maintain and compile the project, the following structure is used:
 
 ```text
-mon-extension-ai/
-├── package.json          # Dépendances (WebLLM, Parcel, TypeScript)
-├── package-lock.json     # Verrouillage des versions des dépendances
-├── src/                  # Code source original
-│   ├── icons/            # Icônes de l'extension (16x16, 32x32, etc.)
-│   ├── content.js        # Script injecté pour lire le texte des pages web
-│   ├── manifest.json     # Configuration V3 et règles de sécurité (CSP)
-│   ├── popup.css         # Styles de l'interface de chat
-│   ├── popup.html        # Structure de la fenêtre de l'extension
-│   └── popup.ts          # Logique TypeScript (moteur WebLLM et UI)
-└── dist/                 # Dossier généré après compilation (à charger dans Chrome)
+eulai-extension/
+├── package.json          # Dependencies (WebLLM, Parcel, TypeScript, Marked)
+├── package-lock.json     # Dependency lock file
+├── src/                  # Original source code
+│   ├── icons/            # Extension icons (including github.svg and icon-base.png)
+│   ├── content.js        # Script injected into tabs to extract page text
+│   ├── manifest.json     # Manifest V3 configuration and CSP rules
+│   ├── popup.css         # Modern UI styles
+│   ├── popup.html        # Extension window structure
+│   └── popup.ts          # TypeScript logic (WebLLM engine and UI management)
+└── dist/                 # Generated folder after build (to be loaded into Chrome)
 
 ```
 
-## 🚀 Installation et Développement
+## Key Features
 
-### 1. Prérequis
+* **Local Inference**: Powered by WebGPU for fast, private, and offline-capable AI chat.
+* **Markdown Extraction**: Convert any webpage (TOS, Privacy Policies, articles) into clean Markdown.
+* **Privacy First**: No telemetry, no API keys, and no server-side processing.
+* **Modern UI**: Glassmorphism design with a real-time progress bar for model initialization.
 
-* **Node.js** installé sur votre machine.
-* Un navigateur basé sur **Chromium** (Chrome, Brave, Edge) avec support WebGPU.
+## Installation & Development
 
-### 2. Initialisation
+### 1. Prerequisites
 
-Placez-vous dans le dossier racine et installez les modules nécessaires :
+* **Node.js** (LTS version recommended) installed on your machine.
+* A **Chromium-based browser** (Chrome, Brave, Edge) with WebGPU support enabled.
+
+### 2. Initialization
+
+Navigate to the project root directory and install the necessary modules:
 
 ```bash
 npm install
 ```
 
-*Note : Cela installe notamment `@mlc-ai/web-llm` pour le moteur et `@mlc-ai/web-runtime` pour la communication GPU.*
+*Note: This installs `@mlc-ai/web-llm` for the engine and `@mlc-ai/web-runtime` for GPU communication.*
 
 ### 3. Compilation
 
-Pour générer les fichiers optimisés dans le dossier `/dist` :
+To generate optimized files in the `/dist` folder, run the build script:
 
 ```bash
 npm run build
 ```
 
-### 4. Chargement dans Chrome
+*Note: Parcel will bundle the TypeScript and CSS into browser-ready files.*
 
-1. Ouvrez `chrome://extensions/`.
-2. Activez le **Mode développeur** (en haut à droite).
-3. Cliquez sur **Charger l'extension décompressée**.
-4. Sélectionnez le dossier **`/dist`** à la racine de votre projet.
+### 4. Load into Chrome
+
+1. Open `chrome://extensions/` in your browser.
+2. Enable **Developer mode** (top right toggle).
+3. Click **Load unpacked**.
+4. Select the **`/dist`** folder from the project root.
+
+## Disclaimer
+
+EULAI uses a lightweight local model. While optimized for browser performance, it may occasionally provide inaccurate information. Always verify critical details from the original document.
