@@ -4,6 +4,8 @@ import torch
 from peft import PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+# Install https://llm.mlc.ai/docs/install/mlc_llm if you haven't already.
+
 BASE_MODEL_ID = "Qwen/Qwen3-0.6B"
 ADAPTER_ID = "AxelDlv00/EULAI"
 MERGED_DIR = "./model_merged_temp"
@@ -22,7 +24,12 @@ def main():
         model = PeftModel.from_pretrained(base_model, ADAPTER_ID)
         merged_model = model.merge_and_unload()
         merged_model.save_pretrained(MERGED_DIR)        
-        tokenizer = AutoTokenizer.from_pretrained(ADAPTER_ID, trust_remote_code=True)
+        print(f"Loading tokenizer from {BASE_MODEL_ID}...")
+        tokenizer = AutoTokenizer.from_pretrained(
+            BASE_MODEL_ID, 
+            trust_remote_code=True,
+            use_fast=True  
+        )
         tokenizer.save_pretrained(MERGED_DIR)
         print("Merge complete.")
     else:

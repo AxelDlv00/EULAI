@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>You lie ? EULAI !</title>
+    <link rel="stylesheet" href="popup.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      
+      <div id="loadingBox" class="overlay">
+        <div class="loader-content">
+          <div class="logo-wrapper loader-logo">
+            <img src="./icons/icon-base.png" alt="Logo" class="logo-icon" />
+            <h1 class="logo-text">EULA<span>I</span></h1>
+            <a href="https://axeldlv00.github.io/axel-delaval-personal-page/" target="_blank" class="author-badge">by Axel Delaval</a>
+          </div>
+          
+          <div id="loadingContainer"></div>
+          <p id="init-label">Initializing Engine...</p>
+
+          <div class="footer-row loader-footer">
+            <a href="https://github.com/AxelDlv00/EULAI/" target="_blank" class="github-box">
+              <img src="./icons/github.svg" alt="GitHub" class="github-icon" />
+              <span>See on GitHub</span>
+            </a>
+            <div class="warning-box">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              <span>This model is experimental, it may be inaccurate.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <header>
+        <div class="logo-wrapper">
+          <img src="./icons/icon-base.png" alt="Logo" class="logo-icon" />
+          <h1 class="logo-text">EULA<span>I</span></h1>
+          <a href="https://axeldlv00.github.io/axel-delaval-personal-page/" target="_blank" class="author-badge">by Axel Delaval</a>
+        </div>
+        <p id="model-name" class="status-text">Ready to assist.</p>
+      </header>
+
+      <main>
+        <div class="tool-section buttons-row">
+          <button id="btn-analyze-page" class="btn btn-primary btn-half" disabled title="Extract and analyze current page content">
+            <i class="fa fa-bolt"></i> Analyze Page
+          </button>
+          <button id="btn-read" class="btn btn-secondary btn-half">
+            <i class="fa fa-file-code"></i> Extract MD
+          </button>
+        </div>
+
+        <div id="raw-document-area" class="hidden card">
+          <div class="card-header">
+            <span class="section-title"><i class="fa-brands fa-markdown"></i> Markdown Output</span>
+            <button id="copy-markdown" class="icon-btn-small" title="Copy Markdown"><i class="fa fa-copy"></i></button>
+          </div>
+          <div id="document-preview" class="content-explorer markdown-body"></div>
+        </div>
+
+        <hr class="divider">
+
+        <div id="analysis-progress-container" class="hidden">
+            <div class="progress-info">
+                <span id="progress-text">Waiting...</span>
+                <span id="progress-percent">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div id="analysis-progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="tool-section chat-section">
+          <div id="answerWrapper" class="hidden card ai-response">
+              <div id="answer" class="markdown-body" style="padding: 12px; font-size: 13px;"></div>
+              
+              <div class="card-footer">
+                  <span id="timestamp" style="font-size: 11px; color: var(--text-muted);"></span>
+                  <button id="copyAnswer" class="icon-btn" title="Copy Answer">
+                      <i class="fa-solid fa-copy"></i>
+                  </button>
+              </div>
+          </div>
+
+          <div id="loading-indicator" class="typing-loader">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <div class="input-group">
+          <input type="text" id="query-input" placeholder="Paste a paragraph..." />
+          <button id="submit-button" class="btn-send" disabled>
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+      </footer>
+
+      <footer class="bottom-bar">
+        <div class="footer-row">
+          <a href="https://github.com/AxelDlv00/EULAI/" target="_blank" class="github-box">
+            <img src="./icons/github.svg" alt="GitHub" class="github-icon" />
+            <span>See on GitHub</span>
+          </a>
+          <div class="warning-box">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>This model is experimental, it may be inaccurate.</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="module" src="./popup.ts"></script>
+  </body>
+</html>

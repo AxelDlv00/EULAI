@@ -1,0 +1,571 @@
+/*
+// ╔════════════════════════════════════════════════════════╗
+// ║                      EULAI Styles                      ║
+// ╚════════════════════════════════════════════════════════╝
+*/
+
+/* +--------------------------------------------------------+
+// | This CSS file styles the popup interface of the Chrome |
+// | extension. It defines color variables, layout styles,  |
+// | and component-specific styles such as headers, buttons,|
+// | progress bars, status boxes, and result blocks.        |
+// +--------------------------------------------------------+
+*/
+
+/*
+// ╭────────────────────────────────────────────────────────╮
+// │                Variables & Global Reset                │
+// ╰────────────────────────────────────────────────────────╯
+*/
+
+:root {
+  --primary: #4361ee;
+  --bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --text-main: #2b2d42;
+  --text-muted: #8d99ae;
+  --radius: 12px;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+
+body { 
+  width: 380px; 
+  font-family: 'Inter', sans-serif; 
+  background-color: var(--bg); 
+  color: var(--text-main); 
+}
+
+.app-container { 
+  padding: 16px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 12px; 
+}
+
+/*
+// ╭────────────────────────────────────────────────────────╮
+// │                  Header & Logo Styles                  │
+// ╰────────────────────────────────────────────────────────╯
+*/
+
+header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 8px; 
+}
+
+.logo-wrapper { 
+  display: flex; 
+  align-items: center; 
+  gap: 4px; 
+}
+
+.logo-icon { 
+  width: 24px; 
+  height: 24px; 
+  object-fit: contain; 
+}
+
+.logo-text { 
+  font-size: 1.2rem; 
+  font-weight: 800; 
+  color: var(--primary); 
+  letter-spacing: -0.5px; 
+  line-height: 1; 
+}
+
+.logo-text span { 
+  color: var(--text-main); 
+}
+
+.status-text { 
+  font-size: 11px; 
+  color: var(--text-muted); 
+}
+
+.author-badge {
+  font-size: 9px; 
+  background: rgba(67, 97, 238, 0.1); 
+  color: var(--primary);
+  text-decoration: none; 
+  padding: 2px 6px; 
+  border-radius: 4px; 
+  font-weight: 500;
+  transition: all 0.2s ease; 
+  border: 1px solid rgba(67, 97, 238, 0.2); 
+  white-space: nowrap;
+}
+
+.author-badge:hover { 
+  background: var(--primary); 
+  color: white; 
+  transform: translateY(-1px); 
+}
+
+/*
+// ╭────────────────────────────────────────────────────────╮
+// │                Buttons & Action Bar                    │
+// ╰────────────────────────────────────────────────────────╯
+*/
+
+.buttons-row { 
+  display: flex; 
+  gap: 10px; 
+}
+
+.btn { 
+  padding: 10px 16px; 
+  border-radius: var(--radius); 
+  border: none; 
+  font-weight: 600; 
+  cursor: pointer; 
+  transition: all 0.2s; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 8px; 
+  flex: 1; 
+  font-size: 12px; 
+}
+
+.btn-primary { 
+  background: var(--primary); 
+  color: white; 
+  box-shadow: 0 2px 10px rgba(67, 97, 238, 0.2); 
+}
+
+.btn-primary:hover { 
+  transform: translateY(-1px); 
+  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3); 
+}
+
+.btn-primary:disabled { 
+  opacity: 0.7; 
+  cursor: wait; 
+  transform: none; 
+}
+
+.btn-secondary { 
+  background: #e9ecef; 
+  color: #495057; 
+  border: 1px solid #dee2e6; 
+}
+
+.btn-secondary:hover { 
+  background: #dee2e6; 
+  color: #212529; 
+}
+
+/*
+// ╭────────────────────────────────────────────────────────╮
+// │                Content Cards & Layout                  │
+// ╰────────────────────────────────────────────────────────╯
+*/
+
+.card { 
+  background: var(--card-bg); 
+  border-radius: var(--radius); 
+  box-shadow: var(--shadow); 
+  overflow: hidden; 
+  border: 1px solid rgba(0,0,0,0.05); 
+}
+
+.card-header { 
+  padding: 8px 12px; 
+  background: #f1f3f5; 
+  border-bottom: 1px solid #eee; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+}
+
+.section-title { 
+  font-size: 11px; 
+  font-weight: 700; 
+  text-transform: uppercase; 
+  color: var(--text-muted); 
+  display: flex; 
+  align-items: center; 
+  gap: 6px; 
+}
+
+.content-explorer { 
+  padding: 12px; 
+  max-height: 180px; 
+  overflow-y: auto; 
+  font-size: 13px; 
+  line-height: 1.5; 
+}
+
+.divider, hr {
+  margin-top: 16px;
+  margin-bottom: 12px;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/*
+// ╭────────────────────────────────────────────────────────╮
+// │                Analysis & Progress UI                  │
+// ╰────────────────────────────────────────────────────────╯
+*/
+
+#analysis-progress-container { 
+  margin-bottom: 10px; 
+  padding: 10px; 
+  background: white; 
+  border-radius: 8px; 
+  box-shadow: var(--shadow); 
+}
+
+.progress-info { 
+  display: flex; 
+  justify-content: space-between; 
+  font-size: 11px; 
+  font-weight: 700; 
+  color: var(--primary); 
+  margin-bottom: 5px; 
+  text-transform: uppercase; 
+}
+
+.progress-bar-bg { 
+  width: 100%; 
+  height: 6px; 
+  background: #e9ecef; 
+  border-radius: 3px; 
+  overflow: hidden; 
+}
+
+#analysis-progress-fill { 
+  width: 0%; 
+  height: 100%; 
+  background: var(--primary); 
+  transition: width 0.3s ease; 
+}
+
+/*
+// ╭────────────────────────────────────────────────────────╮
+// │                Analysis Results Blocks                 │
+// ╰────────────────────────────────────────────────────────╯
+*/
+
+.block-result-container {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #f0f0f0;
+  margin-bottom: 15px;
+  padding: 12px;
+  animation: fadeIn 0.4s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.block-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-show-source {
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.btn-show-source:hover { 
+  background: rgba(67, 97, 238, 0.05); 
+}
+
+.source-popup {
+  display: none;
+  margin-bottom: 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 12px;
+  color: #495057;
+}
+
+.source-popup.active { 
+  display: block; 
+}
+
+/*
+// ╭────────────────────────────────────────────────────────╮
+// │                Status Boxes & Warnings                 │
+// ╰────────────────────────────────────────────────────────╯
+*/
+
+.status-box { 
+  display: flex; 
+  align-items: flex-start; 
+  gap: 12px; 
+  background: #fff; 
+  border-radius: 10px; 
+  padding: 12px; 
+  margin: 10px 0; 
+  border-left: 4px solid #ccc; 
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+}
+
+.status-box.BLOCKER { border-left-color: #e63946; background: #fff5f5; }
+.status-box.BAD { border-left-color: #f4a261; background: #fff9f4; }
+.status-box.GOOD { border-left-color: #2a9d8f; background: #f0faf9; }
+.status-box.NEUTRAL { border-left-color: #4361ee; background: #f0f3ff; }
+
+.status-icon-wrapper { 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  min-width: 24px; 
+}
+
+.status-fa-icon { 
+  font-size: 18px; 
+  margin-top: 2px; 
+}
+
+.status-box.BLOCKER .status-fa-icon { color: #e63946; } 
+.status-box.BAD .status-fa-icon { color: #f4a261; } 
+.status-box.GOOD .status-fa-icon { color: #2a9d8f; } 
+.status-box.NEUTRAL .status-fa-icon { color: #4361ee; }
+
+.status-content { flex: 1; }
+.status-title { font-weight: 700; font-size: 13px; margin-bottom: 2px; display: block; }
+.status-explanation { font-size: 12px; color: var(--text-main); line-height: 1.4; }
+
+.format-warning {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff3cd;
+  color: #856404;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  border: 1px solid #ffeeba;
+}
+
+.format-warning i {
+  color: #e67e22;
+  font-size: 12px;
+}
+
+/*
+// ╭────────────────────────────────────────────────────────╮
+// │                Chat Input & UI Elements                │
+// ╰────────────────────────────────────────────────────────╯
+*/
+
+.input-group { 
+  display: flex; 
+  background: white; 
+  padding: 6px; 
+  border-radius: 24px; 
+  box-shadow: var(--shadow); 
+  border: 1px solid #eee; 
+}
+
+.input-group input { 
+  flex: 1; 
+  border: none; 
+  padding: 8px 12px; 
+  outline: none; 
+  font-size: 13px; 
+}
+
+.btn-send { 
+  background: var(--primary); 
+  color: white; 
+  border: none; 
+  width: 32px; 
+  height: 32px; 
+  border-radius: 50%; 
+  cursor: pointer; 
+}
+
+.btn-send:disabled { 
+  background: #ccc; 
+}
+
+.ai-response {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 10px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #fdfdfd;
+  border-top: 1px solid #f0f0f0;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  background: rgba(67, 97, 238, 0.05);
+  color: var(--primary);
+}
+
+/*
+// ╭────────────────────────────────────────────────────────╮
+// │                  Footer & Bottom Bar                   │
+// ╰────────────────────────────────────────────────────────╯
+*/
+
+.bottom-bar { 
+  margin-top: 10px; 
+  padding-top: 10px; 
+  border-top: 1px solid rgba(0, 0, 0, 0.05); 
+}
+
+.footer-row { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  gap: 8px; 
+  width: 100%; 
+}
+
+.github-box, .warning-box { 
+  flex: 1; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 6px; 
+  padding: 6px 4px; 
+  border-radius: 8px; 
+  font-size: 10px; 
+  font-weight: 600; 
+  height: 32px; 
+}
+
+.github-box { 
+  background: #24292e; 
+  color: white; 
+  text-decoration: none; 
+}
+
+.github-icon { 
+  width: 14px; 
+  height: 14px; 
+  filter: invert(1); 
+}
+
+.warning-box { 
+  background: #fff3cd; 
+  color: #856404; 
+  border: 1px solid #ffeeba; 
+}
+
+.warning-box i { 
+  color: #e67e22; 
+}
+
+/*
+// ╭────────────────────────────────────────────────────────╮
+// │                  Loaders & Animations                  │
+// ╰────────────────────────────────────────────────────────╯
+*/
+
+.typing-loader { 
+  display: none; 
+  text-align: center; 
+  margin: 10px 0; 
+}
+
+.typing-loader span { 
+  width: 8px; 
+  height: 8px; 
+  background: var(--primary); 
+  display: inline-block; 
+  border-radius: 50%; 
+  margin: 0 2px; 
+  animation: bounce 0.6s infinite alternate; 
+}
+
+@keyframes bounce { 
+  to { transform: translateY(-6px); opacity: 0.3; } 
+}
+
+.overlay { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  background: white; 
+  z-index: 100; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+
+.loader-content { 
+  width: 85%; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  gap: 15px; 
+}
+
+#loadingContainer { 
+  width: 100%; 
+  height: 8px; 
+  background-color: #e0e0e0; 
+  border-radius: 10px; 
+  overflow: hidden; 
+  position: relative; 
+}
+
+@keyframes fadeIn { 
+  from { opacity: 0; transform: translateY(10px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}
+
+.hidden { 
+  display: none; 
+}
